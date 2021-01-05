@@ -1,0 +1,88 @@
+package org.financial.advisor.controller;
+ 
+import java.util.List;
+ 
+import org.financial.advisor.dao.portfolioDAO;
+import org.financial.advisor..model.Portfolio;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+ 
+@RestController
+ 
+public class FinancialAdvisorRESTController {
+ 
+    @Autowired
+    private PortfolioDAO portfolioDAO;
+ 
+    @RequestMapping("/")
+    @ResponseBody
+    public String welcome() {
+        return "Welcome to RestTemplate Example.";
+    }
+ 
+    
+    @RequestMapping(value = "/advisor", //
+            method = RequestMethod.GET, //
+            produces = { MediaType.APPLICATION_JSON_VALUE, //
+                    MediaType.APPLICATION_XML_VALUE })
+    @ResponseBody
+    public List<Portfolio> getPortfolio() {
+        List<Portfolio> list = PortfolioDAO.getAllInvestmentPortfolio();
+        return list;
+    }
+ 
+    
+    @RequestMapping(value = "/advisor/{advisorNo}", //
+            method = RequestMethod.GET, //
+            produces = { MediaType.APPLICATION_JSON_VALUE, //
+                    MediaType.APPLICATION_XML_VALUE })
+    @ResponseBody
+    public Employee getEmployee(@PathVariable("empNo") String advisorNo) {
+        return employeeDAO.getEmployee(empNo);
+    }
+ 
+    
+    @RequestMapping(value = "/advisor", //
+            method = RequestMethod.POST, //
+            produces = { MediaType.APPLICATION_JSON_VALUE, //
+                    MediaType.APPLICATION_XML_VALUE })
+    @ResponseBody
+    public Employee addPortfolio(@RequestBody Employee emp) {
+ 
+        System.out.println("(Service Side) Creating employee: " + emp.getadvisorNo());
+ 
+        return employeeDAO.addPortfolio(Portfolio);
+    }
+ 
+    
+    @RequestMapping(value = "/advisor", //
+            method = RequestMethod.PUT, //
+            produces = { MediaType.APPLICATION_JSON_VALUE, //
+                    MediaType.APPLICATION_XML_VALUE })
+    @ResponseBody
+    public Employee updatePortfolio(@RequestBody Employee emp) {
+ 
+        System.out.println("(Service Side) Editing Portfolio: " + emp.getadvisorNo());
+ 
+        return PortfolioDAO.updatePortfolio(Portfolio);
+    }
+ 
+    
+    @RequestMapping(value = "/advisor/{advisorNo}", //
+            method = RequestMethod.DELETE, //
+            produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+    @ResponseBody
+    public void deletePortfolio(@PathVariable("advisorNo") String advisorNo) {
+ 
+        System.out.println("(Service Side) Deleting Portfolio: " + advisorNo);
+ 
+        PortfolioDAO.deletePortfolio(advisorNo);
+    }
+ 
+}
