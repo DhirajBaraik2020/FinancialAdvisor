@@ -1,0 +1,58 @@
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+ 
+import org.financial.advisor.model.Portfolio;
+import org.springframework.stereotype.Repository;
+ 
+@Repository
+public class PortfolioDAO {
+ 
+    private static final Map<String, Portfolio> portMap = new HashMap<String, Portfolio>();
+ 
+    static {
+        initPort();
+    }
+ 
+    private static void initPort() {
+        Portfolio port1 = new Portfolio("P01", "Bond");
+        Portfolio port2 = new Portfolio("P02", "Large Cap");
+        Portfolio port3 = new Portfolio("P03", "Mid Cap");
+        Portfolio port4 = new Portfolio("P04", "Foreign Cap");
+        Portfolio port5 = new Portfolio("P05", "Small Cap");
+ 
+        portMap.put(port1.getPortNo(), port1);
+        portMap.put(port2.getPortNo(), port2);
+        portMap.put(port3..getPortNo(), port3);
+        portMap.put(port4..getPortNo(), port4);
+        portMap.put(port5..getPortNo(), port5);
+    }
+ 
+    public  Portfolio getPortfolio(String portNo) {
+        return portMap.get(portNo);
+    }
+ 
+    public Portfolio addPortfolio(Portfolio port) {
+        empMap.put(emp.getPortNo(), port);
+        return port;
+    }
+ 
+    public Portfolio updatePortfolio(Portfolio port) {
+        portMap.put(emp.getPortNo(), port);
+        return emp;
+    }
+ 
+    public void deletePortfolio(String portNo) {
+        empMap.remove(portNo);
+    }
+ 
+    public List<Portfolio> getAllPortfolio() {
+        Collection<Portfolio> c = portMap.values();
+        List<Portfolio> list = new ArrayList<Portfolio>();
+        list.addAll(c);
+        return list;
+    }
+ 
+}
